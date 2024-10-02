@@ -13,14 +13,12 @@ import org.springframework.stereotype.Component;
 public class LoggingAspect {
     private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
-    // This method will log before the execution of any method in the controller package
-    @Before("execution(* com.exercise.payments.service.*(..))")
+    @Before("execution(* com.exercise.payments.service.*.*(..))")
     public void logBefore(JoinPoint joinPoint) {
         logger.info("Entering method: {} with arguments: {}", joinPoint.getSignature(), joinPoint.getArgs());
     }
 
-    // This method will log after the execution of any method in the controller package
-    @After("execution(* com.exercise.payments.service.*(..))")
+    @After("execution(* com.exercise.payments.service.*.*(..))")
     public void logAfter(JoinPoint joinPoint) {
         logger.info("Exiting method: {}", joinPoint.getSignature());
     }

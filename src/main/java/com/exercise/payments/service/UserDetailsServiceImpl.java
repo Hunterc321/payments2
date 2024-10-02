@@ -2,15 +2,16 @@ package com.exercise.payments.service;
 
 import com.exercise.payments.model.User;
 import com.exercise.payments.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Component
+@AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 

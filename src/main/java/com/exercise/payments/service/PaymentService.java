@@ -4,7 +4,6 @@ import com.exercise.payments.exception.InvalidInputException;
 import com.exercise.payments.exception.PaymentNotFoundException;
 import com.exercise.payments.model.Payment;
 import com.exercise.payments.model.PaymentDTO;
-import com.exercise.payments.repository.PaymentHistoryRepository;
 import com.exercise.payments.repository.PaymentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +23,20 @@ public class PaymentService {
     public PaymentService(PaymentRepository paymentRepository, PaymentHistoryService paymentHistoryService) {
         this.paymentRepository = paymentRepository;
         this.paymentHistoryService = paymentHistoryService;
+    }
+
+    private static Payment mapToPayment(PaymentDTO paymentDTO) {
+        Payment payment = new Payment();
+        Optional.ofNullable(paymentDTO.getAmount())
+                .ifPresent(payment::setAmount);
+        Optional.ofNullable(paymentDTO.getCurrency())
+                .ifPresent(payment::setCurrency);
+        Optional.ofNullable(paymentDTO.getFromAccount())
+                .ifPresent(payment::setFromAccount);
+        Optional.ofNullable(paymentDTO.getToAccount())
+                .ifPresent(payment::setToAccount);
+        payment.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        return payment;
     }
 
     public Page<PaymentDTO> getPaymentsWithFilters(BigDecimal amount, String currency, Pageable pageable) {
@@ -68,16 +81,6 @@ public class PaymentService {
         }
     }
 
-    private static Payment mapToPayment(PaymentDTO paymentDTO) {
-        Payment payment = new Payment();
-        Optional.ofNullable(paymentDTO.getAmount()).ifPresent(payment::setAmount);
-        Optional.ofNullable(paymentDTO.getCurrency()).ifPresent(payment::setCurrency);
-        Optional.ofNullable(paymentDTO.getFromAccount()).ifPresent(payment::setFromAccount);
-        Optional.ofNullable(paymentDTO.getToAccount()).ifPresent(payment::setToAccount);
-        payment.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        return payment;
-    }
-
     private PaymentDTO mapToPaymentDTO(Payment payment) {
         if (payment == null) {
             return null;
@@ -85,11 +88,16 @@ public class PaymentService {
 
         PaymentDTO paymentDTO = new PaymentDTO();
 
-        Optional.ofNullable(payment.getAmount()).ifPresent(paymentDTO::setAmount);
-        Optional.ofNullable(payment.getCurrency()).ifPresent(paymentDTO::setCurrency);
-        Optional.ofNullable(payment.getFromAccount()).ifPresent(paymentDTO::setFromAccount);
-        Optional.ofNullable(payment.getToAccount()).ifPresent(paymentDTO::setToAccount);
-        Optional.ofNullable(payment.getTimestamp()).ifPresent(paymentDTO::setTimestamp);
+        Optional.ofNullable(payment.getAmount())
+                .ifPresent(paymentDTO::setAmount);
+        Optional.ofNullable(payment.getCurrency())
+                .ifPresent(paymentDTO::setCurrency);
+        Optional.ofNullable(payment.getFromAccount())
+                .ifPresent(paymentDTO::setFromAccount);
+        Optional.ofNullable(payment.getToAccount())
+                .ifPresent(paymentDTO::setToAccount);
+        Optional.ofNullable(payment.getTimestamp())
+                .ifPresent(paymentDTO::setTimestamp);
 
         return paymentDTO;
     }
