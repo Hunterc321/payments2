@@ -58,6 +58,7 @@ REST API for managing payment transactions in a bank account. This API allows fo
 ####
 1. **Running the application inside Docker**
     ```bash
+   mvn clean package
    docker build -t payments-app .
     docker run --name payments-container -p 8080:8080 payments-app
 

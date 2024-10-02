@@ -74,6 +74,8 @@ class PaymentControllerTest {
         PaymentDTO paymentDTO = new PaymentDTO();
         paymentDTO.setAmount(new BigDecimal("100.00"));
         paymentDTO.setCurrency("USD");
+        paymentDTO.setFromAccount("from_account");
+        paymentDTO.setToAccount("to_account");
 
         when(paymentService.createPayment(any())).thenReturn(paymentDTO);
 
