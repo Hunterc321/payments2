@@ -3,7 +3,6 @@ package com.exercise.payments.service;
 import com.exercise.payments.model.PaymentHistory;
 import com.exercise.payments.repository.PaymentHistoryRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
