@@ -46,7 +46,7 @@ class PaymentControllerTest {
     @Test
     @WithMockUser
     void testGetAllPayments() throws Exception {
-        PaymentDTO paymentDTO = new PaymentDTO(); // Populate fields as necessary
+        PaymentDTO paymentDTO = new PaymentDTO();
         paymentDTO.setAmount(new BigDecimal("100.0"));
         paymentDTO.setCurrency("USD");
 
@@ -81,7 +81,7 @@ class PaymentControllerTest {
 
         mockMvc.perform(post("/payments")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(paymentDTO)) // Convert paymentDTO to JSON
+                        .content(objectMapper.writeValueAsString(paymentDTO))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

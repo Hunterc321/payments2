@@ -27,6 +27,19 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="add-indexes-to-payment-02" author="pcosmin">
+        <createIndex indexName="idx_currency" tableName="payment">
+            <column name="currency"/>
+        </createIndex>
+        <createIndex indexName="idx_amount" tableName="payment">
+            <column name="amount"/>
+        </createIndex>
+        <createIndex indexName="idx_timestamp_payment" tableName="payment">
+            <column name="timestamp"/>
+        </createIndex>
+    </changeSet>
+
     <include file="create-payment-hystory-table-00.xml"/>
     <include file="create-users-table.xml"/>
 </databaseChangeLog>
